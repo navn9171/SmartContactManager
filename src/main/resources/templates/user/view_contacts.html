@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="user/base::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<section>
+		<div class="container">
+			<table class="table mt-4">
+			  <thead class="thead-light">
+			    <tr>
+			      <th scope="col">ID</th>
+			      <th scope="col">Name</th>
+			      <th scope="col">Email</th>
+			      <th scope="col">Phone</th>
+			      <th scope="col">Actions</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			    <tr th:each="c : ${contacts}">
+			      <th scope="row" th:text="${c.c_id}">1</th>
+			      
+			      	<td><a href="#" th:href="@{'/user/contact/' + ${c.c_id}}" th:text="${c.name}"></a></td>
+			      
+			      <td th:text="${c.email}"></td>
+			      <td th:text="${c.phone}"></td>
+			      <td style="display: flex; justify-content: space-evenly;">
+			      	<form method="post" th:action="@{'/user/contact/edit/' + ${c.c_id}}">
+			      		<button class="btn btn-warning">Edit</button>
+			      	</form>
+			      	<a th:onclick="|deleteContact(${c.c_id})|" class="btn btn-danger">Delete</a>
+			      </td>
+			    </tr>
+			  </tbody>
+			</table>
+
+			<nav aria-label="Page navigation example">
+				<ul class="pagination justify-content-center">
+					<li th:if="${currentPage != 0}" class="page-item"><a class="page-link" th:href="@{'/user/contacts/' + ${currentPage-1}}" href="#">Previous</a></li>
+					
+					<li th:classappend="${currentPage+1 == p} ? 'active' : ''" th:each="p : ${#numbers.sequence(1, totalPages)}" class="page-item"><a class="page-link" th:href="@{'/user/contacts/' + ${p-1}}" href="#"><span th:text="${p}"></span></a></li>
+					
+					<li th:if="${currentPage+1 != totalPages}" class="page-item"><a class="page-link" th:href="@{'/user/contacts/' + ${currentPage+1}}" href="#">Next</a></li>
+				</ul>
+			</nav>
+		</div>
+		
+		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+		<script>
+			function deleteContact(id){
+				swal({
+					  title: "Are you sure?",
+					  text: "you want to delete contact?",
+					  icon: "warning",
+					  buttons: true,
+					  dangerMode: true,
+				})
+				.then((willDelete) => {
+					if (willDelete) {
+						window.location="/user/contact/delete/"+id;
+					} else {
+					    swal("Your contact is safe!");
+					}
+				});
+			}
+		</script>
+	</section>
+</body>
+</html>

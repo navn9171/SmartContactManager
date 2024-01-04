@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title>Home</title>
+</head>
+<body>
+	<section>
+		<div th:if="${session.message}" th:classappend="${session.message.color}" class="alert" role="alert">
+			<p th:text="${session.message.text}"></p>
+			<!-- <th:block th:text="${session.removeAttribute('message')}"></th:block> -->
+		</div>
+		<div class="container text-center">
+			<h3>Register Yourself!</h3>
+			
+			<form th:action="@{/do_register}" method="post" th:object="${user}">
+				Name : <input th:value="${user.name}" name="name" type="text" required /><br /> 
+				Email : <input th:value="${user.email}" name="email" type="text" required /><br />
+				Password : <input th:value="${user.password}" name="password" type="password" required /><br /> 
+				About : <textarea th:text="${user.about}" name="about" rows="" cols="23" required></textarea><br /> 
+				
+				<input type="submit" value="Register" />
+			</form>
+		</div>
+	</section>
+</body>
+</html>

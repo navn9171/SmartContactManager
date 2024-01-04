@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="user/base::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<section class="bg-image" style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');">
+  		<div class="mask d-flex align-items-center h-100 gradient-custom-3">
+    		<div class="container h-100 mt-3 mb-3">
+      			<div class="row d-flex justify-content-center align-items-center h-100">
+        			<div class="col-12 col-md-9 col-lg-7 col-xl-6">
+          				<div class="card" style="border-radius: 15px;">
+            				<div class="card-body p-5">
+              					<h2 class="text-uppercase text-center mb-5">Update Contact</h2>
+
+              					<form method="post" th:action="@{/user/update_contact}" th:object="${contact}" enctype="multipart/form-data">
+              					
+									<input th:value="${contact.c_id}" type="hidden" name="c_id"/>
+									
+                					<div class="form-outline mb-4">
+                  						<input th:value="${contact.name}" type="text" name="name" id="form3Example1cg" class="form-control form-control-lg" required/>
+                  						<label class="form-label" for="form3Example1cg">Name</label>
+                					</div>
+                					
+                					<div class="form-outline mb-4">
+                  						<input th:value="${contact.nickname}" type="text" name="nickname" id="form3Example1cg" class="form-control form-control-lg" required/>
+                  						<label class="form-label" for="form3Example1cg">Nickname</label>
+                					</div>
+                					
+                					<div class="form-outline mb-4">
+                  						<input th:value="${contact.work}" type="text" name="work" id="form3Example1cg" class="form-control form-control-lg" required/>
+                  						<label class="form-label" for="form3Example1cg">Profession</label>
+                					</div>
+
+                					<div class="form-outline mb-4">
+							         	<input th:value="${contact.email}" type="email" name="email" id="form3Example3cg" class="form-control form-control-lg" required/>
+							         	<label class="form-label" for="form3Example3cg">Email</label>
+							       	</div>
+
+					                <div class="form-outline mb-4">
+					                  	<input th:value="${contact.phone}" type="number" name="phone" id="form3Example4cg" class="form-control form-control-lg" required/>
+					                  	<label class="form-label" for="form3Example4cg">Phone</label>
+					                </div>
+					
+					                <div class="form-outline mb-4">
+					                  	<textarea th:text="${contact.about}" name="about" rows="5" id="mytextarea" class="form-control form-control-lg"></textarea>
+					                  	<label class="form-label" for="form3Example4cdg">About</label>
+					                </div>  
+					                
+					                <div class="form-outline mb-4">
+                  						<input type="file" name="profileImage" />
+                  						<!-- <label class="form-label" for="form3Example1cg">Image</label> -->
+                					</div>              
+
+					                <div class="d-flex justify-content-center">
+					                  <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">UPDATE</button>
+					                </div>
+
+              					</form>
+
+            				</div>
+          				</div>
+        			</div>
+      			</div>
+    		</div>
+  		</div>
+  		<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+ 		<script>
+	      tinymce.init({
+		  	selector: '#mytextarea'
+		  });
+	    </script>
+	</section>
+</body>
+</html>
